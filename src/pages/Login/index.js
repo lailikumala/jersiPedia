@@ -1,27 +1,62 @@
-import { useNavigation } from '@react-navigation/native';
-import React, {Component} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import {Ilustrasi, Logo} from '../../assets';
 import {Inputan, Jarak, Tombol} from '../../components';
+import { loginUser } from '../../config/actions/auth';
 import {colors, fonts, responsiveHeight} from '../../utils';
 
 const Login = ({navigation}) => {
-  
+  const [email, setEmail]       = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch                = useDispatch();
+  const {loginLoading, loginResult} = useSelector(s => s.Auth);
+
+  useEffect(() => {
+    if (loginResult) navigation.replace('MainApp')
+  }, [loginResult]);
+
+  const login = () => {
+    if (email && password) {
+      //action
+      dispatch(loginUser(email, password));
+    } else {
+      Alert.alert('Error', 'Email & Password harus diisi');
+    }
+  };
     return (
       <View style={styles.pages}>
         <View style={styles.logo}>
           <Logo />
         </View>
         <View style={styles.cardLogin}>
-          <Inputan label="Email" />
-          <Inputan label="Password" secureTextEntry />
+          <Inputan 
+            label="Email"
+            value={email}
+            onChangeText={email => setEmail(email)}
+            
+          />
+          <Inputan 
+            label="Password" 
+            secureTextEntry 
+            value={password}
+          onChangeText={password => setPassword(password)}
+
+          />
           <Jarak height={25} />
-          <Tombol title="Login" type="text" padding={12} fontSize={18} />
+          <Tombol 
+            title="Masuk" 
+            type="text" 
+            padding={12} 
+            fontSize={18} 
+            loading={loginLoading}
+            onPress={() => login()}
+          />
         </View>
 
         <View style={styles.register}>
-            <Text style={styles.textBlue}>Belum Punya Akun ?</Text>
-            <Text style={styles.textBlue} onPress={() => navigation.navigate('Register1')}>Klik Untuk Daftar</Text>
+            <Text style={styles.textBlue}>Belum Punya akun ?</Text>
+            <Text style={styles.textBlue}>Klik untuk <Text onPress={() => navigation.navigate('Register1')} style={{color: "red"}}>Daftar</Text></Text>
         </View>
 
         <View style={styles.ilustrasi}>

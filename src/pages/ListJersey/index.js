@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {HeaderComponent, ListJerseys, ListLiga} from '../../components';
 import {colors, fonts} from '../../utils';

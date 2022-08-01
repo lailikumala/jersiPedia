@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {useDispatch, useSelector} from "react-redux";
 import {
   BannerSlider,
   HeaderComponent,
@@ -15,6 +16,7 @@ const Home = ({navigation}) => {
 
   const [ligas, setLigas]     = useState(dummyLigas);
   const [jerseys, setJerseys] = useState(dummyJerseys);
+  const dispatch              = useDispatch(); 
   
     return (
       <View style={styles.page}>
