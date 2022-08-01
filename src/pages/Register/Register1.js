@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import {
   Text,
   StyleSheet,
@@ -7,13 +7,31 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   ScrollView,
+  Alert
 } from 'react-native';
 import {colors, fonts, responsiveHeight, responsiveWidth} from '../../utils';
 import {IlustrasiRegister1} from '../../assets';
 import {Inputan, Jarak, Tombol} from '../../components';
 import { useNavigation } from '@react-navigation/native';
 
-const Register1 = ({navigation}) => {  
+const Register1 = ({navigation}) => { 
+  
+  const [name, setName]         = useState('');
+  const [email, setEmail]       = useState('');
+  const [nohp, setNohp]         = useState('');
+  const [password, setPassword] = useState('');
+
+  const onContinue = () => {
+    if (name && email && nohp && password) {
+      navigation.navigate('Register2', {name, email, nohp, password});
+    } else {
+      Alert.alert(
+        'Error',
+        'Nama, email, no. telp, dan password harus diisi',
+      );
+    }
+  };
+
 
     return (
       <KeyboardAvoidingView
@@ -32,7 +50,7 @@ const Register1 = ({navigation}) => {
               <IlustrasiRegister1 />
               <Jarak height={5} />
               <Text style={styles.title}>Daftar</Text>
-              <Text style={styles.title}>Isi Daftar Diri Anda</Text>
+              <Text style={styles.title}>Isi Data Diri Anda</Text>
 
               <View style={styles.wrapperCircle}>
                 <View style={styles.circlePrimary}></View>
@@ -42,18 +60,35 @@ const Register1 = ({navigation}) => {
             </View>
 
             <View style={styles.card}>
-              <Inputan label="Nama" />
-              <Inputan label="Email" />
-              <Inputan label="No. Handphone" keyboardType="number-pad" />
-              <Inputan label="Password" secureTextEntry />
+              <Inputan 
+                label="Nama"
+                value={name}
+                onChangeText={name => setName(name)} 
+              />
+              <Inputan 
+                label="Email"
+                value={email}
+                onChangeText={email => setEmail(email)} 
+              />
+              <Inputan 
+                label="No. Telp" keyboardType="number-pad" 
+                value={nohp}
+                onChangeText={nohp => setNohp(nohp)}
+              />
+              <Inputan 
+                label="Password" 
+                secureTextEntry 
+                value={password}
+                onChangeText={password => setPassword(password)}
+              />
               <Jarak height={25} />
               <Tombol
-                title="Continue"
+                title="Selanjutnya"
                 type="textIcon"
                 icon="submit"
                 padding={10}
                 fontSize={18}
-                onPress={() => navigation.navigate('Register2')}
+                onPress={() => onContinue()}
               />
             </View>
           </ScrollView>

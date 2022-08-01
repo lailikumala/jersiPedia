@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Text,
   StyleSheet,
@@ -7,17 +7,64 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   ScrollView,
+  Alert
 } from 'react-native';
 import {colors, fonts, responsiveWidth} from '../../utils';
 import {IlustrasiRegister2} from '../../assets';
 import {Inputan, Jarak, Pilihan, Tombol} from '../../components';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import {getProvinceList, getCityList,} from "../../config/actions/rajaOngkir";
+import { registerUser } from '../../config/actions/auth';
 
-const Register2 = () => {
-  const [dataKota, setDataKota]         = useState([]);
-  const [dataProvinsi, setDataProvinsi] = useState([]);
-  const navigation                       = useNavigation();
-    
+const Register2 = ({route}) => {
+  const [address, setAddress]           = useState('');
+  const [dataCity, setDataCity]         = useState(false);
+  const [dataProvince, setDataProvince] = useState(false);
+  const navigation                      = useNavigation();
+  const dispatch                        = useDispatch();
+  const {ProvinceResult, CityResult}    = useSelector((s) => s.RajaOngkir);
+  const {registerLoading, registerResult, } = useSelector(state => state.Auth);
+  const {name, email, nohp, password}   = route.params
+
+  console.log("tess", name, email, nohp, password, address, dataProvince, dataCity)
+  
+  useEffect(() => {
+    dispatch(getProvinceList())
+  },[])
+
+  useEffect(() => {
+    if(registerResult) navigation.navigate("MainApp")
+  },[])
+  
+  const changeProvince = (province) => {
+    setDataProvince(province)
+    dispatch(getCityList(province));
+  };
+
+  const onSubmit = () => {
+
+    if(dataCity && dataProvince && address) {
+
+      const data = {
+        nama: name,
+        email: email,
+        nohp: nohp,
+        alamat: address,
+        provinsi: dataProvince,
+        kota: dataCity,
+        status: 'user'
+      }
+
+      //ke Auth Action
+      dispatch(registerUser(data, password));
+
+    }else {
+      Alert.alert("Error", 'Alamat, Kota, dan Provinsi harus diisi')
+    }
+
+  }
+
     return (
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -45,18 +92,35 @@ const Register2 = () => {
             </View>
 
             <View style={styles.card}>
-              <Inputan label="Alamat" textarea />
+              <Inputan 
+                label="Address" 
+                textarea 
+                value={address}
+                onChangeText={(address => setAddress(address))}  
+              />
 
-              <Pilihan label="Provinsi" datas={dataProvinsi} />
-              <Pilihan label="Kota/Kab" datas={dataKota} />
+              <Pilihan 
+              label="Province" 
+              datas={ProvinceResult ? ProvinceResult : []}
+              selectedValue={dataProvince}
+              onValueChange={(province) => changeProvince(province)}
+              />
+              
+              <Pilihan 
+              label="City/Dist" 
+              datas={CityResult ? CityResult : []}
+              selectedValue={dataCity}
+              onValueChange={(city) => setDataCity(city)}
+              />
               <Jarak height={25} />
               <Tombol
-                title="Continue"
+                title="Daftar"
                 type="textIcon"
                 icon="submit"
                 padding={10}
                 fontSize={18}
-                onPress={() => navigation.navigate('MainApp')}
+                onPress={() => onSubmit()}
+                loading={registerLoading}
               />
             </View>
           </ScrollView>

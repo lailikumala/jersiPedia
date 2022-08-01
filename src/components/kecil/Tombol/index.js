@@ -4,6 +4,7 @@ import { IconBack, IconKeranjang, IconSubmit } from '../../../assets'
 import { colors } from '../../../utils'
 import TextIcon from './TextIcon'
 import TextOnly from './TextOnly'
+import TombolLoading from './TombolLoading'
 
 const Tombol = (props) => {
 
@@ -14,13 +15,18 @@ const Tombol = (props) => {
             return <IconBack />
         }else if (icon === 'submit') {
             return <IconSubmit />;
-          }
+        }
 
         return <IconKeranjang />
     }
 
-    const { icon, totalKeranjang, padding, type, onPress } = props;
+    const { icon, totalKeranjang, padding, type, onPress, loading } = props;
     
+    //Loading
+    if(loading) {
+        return <TombolLoading {...props} />
+    }
+
     if(type === "text") {
         return <TextOnly {...props} />
     }else if(type === "textIcon") {
