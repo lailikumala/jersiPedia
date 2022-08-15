@@ -1,28 +1,40 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, StyleSheet, View, Image} from 'react-native';
-import { colors, fonts, responsiveHeight, responsiveWidth } from '../../utils'
-import { dummyProfile, dummyMenu } from '../../data'
+import { colors, fonts, getData, responsiveHeight, responsiveWidth } from '../../utils'
+import { dummyMenu } from '../../data'
 import { RFValue } from "react-native-responsive-fontsize";
 import { heightMobileUI } from '../../utils/constant';
 import { ListMenu } from '../../components';
+import {DefaultImage} from '../../assets';
 
 const Profile = ({navigation}) => {
 
-  const [profile, setProfile] = useState(dummyProfile);
-  const [menus, setMenus]     = useState(dummyMenu);
+  const [profile, setProfile] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      getData('user').then(res => {
+        const data = res;
+        if (data) {
+          setProfile(data);
+        } else {
+          navigation.replace('Login');
+        }
+      });
+    });
+    return unsubscribe;
+  }, []);
 
     return (
       <View style={styles.page}>
         <View style={styles.container}>
-          <Image source={profile.avatar} style={styles.foto} />
+          <Image source={profile.avatar ? {uri: profile.avatar} : DefaultImage} style={styles.foto} />
           <View style={styles.profile}>
             <Text style={styles.nama}>{profile.nama}</Text>
-            <Text style={styles.desc}>No. HP : {profile.nomerHp}</Text>
-            <Text style={styles.desc}>{profile.alamat} {profile.kota}</Text>
+            <Text style={styles.desc}>No. HP : {profile.nohp}</Text>
+            <Text style={styles.desc}>Jl : {profile.alamat}</Text>
           </View>
-
-          <ListMenu menus={menus} navigation={navigation}/>
-
+        <ListMenu menus={dummyMenu} />
         </View>
       </View>
     );
