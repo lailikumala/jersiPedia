@@ -4,25 +4,25 @@ import { IconChangePassword, IconEditProfile, IconHistory, IconSignOut } from ".
 export const dummyMenu = [
   {
     id: 1,
-    nama: 'Edit Profile',
+    nama: 'Ubah Profil',
     gambar: <IconEditProfile />,
     halaman: 'EditProfile'
   },
   {
     id: 2,
-    nama: 'Change Password',
+    nama: 'Ubah Password',
     gambar: <IconChangePassword />,
     halaman: 'ChangePassword'
   },
   {
     id: 3,
-    nama: 'History Pemesanan',
+    nama: 'Riwayat Pemesanan',
     gambar: <IconHistory />,
     halaman: 'History'
   },
   {
     id: 4,
-    nama: 'Sign Out',
+    nama: 'Keluar',
     gambar: <IconSignOut />,
     halaman: 'Login'
   },

@@ -1,11 +1,44 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View, Alert} from 'react-native';
 import {IconArrowRight} from '../../../assets';
-import {colors, fonts, responsiveHeight} from '../../../utils';
+import {clearStorage, colors, fonts, responsiveHeight} from '../../../utils';
+import FIREBASE from '../../../config/firebase'
+import { useNavigation } from '@react-navigation/native';
 
-const CardMenu = ({menu, navigation}) => {
+const CardMenu = ({menu}) => {
+  const navigation = useNavigation();
+  
+  const SignOut = () => {
+    FIREBASE.auth().signOut().then(function() {
+      // Sign-out successful.
+      clearStorage();
+      navigation.replace('Login');
+    }).catch(function(error) {
+      // An error happened.
+      alert(error)
+    });
+  }
+
+  const onSubmit = () => {
+    if(menu.halaman === "Login") {
+      Alert.alert(
+        "Keluar",
+        "Anda yakin akan keluar ?",
+        [
+          {
+            text: "Batal",
+            onPress: () => console.log("Logout Cancel"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => SignOut() }
+        ]
+      );
+    }else {
+      navigation.navigate(menu.halaman)
+    }
+  }
   return (
-    <TouchableOpacity style={styles.container} onPress={() => navigation.navigate(menu.halaman)}>
+    <TouchableOpacity style={styles.container} onPress={() => onSubmit()}>
       <View style={styles.menu}>
         {menu.gambar}
         <Text style={styles.text}>{menu.nama}</Text>
