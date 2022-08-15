@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {
   BannerSlider,
   HeaderComponent,
@@ -9,23 +9,30 @@ import {
   Tombol,
 } from '../../components';
 import {colors, fonts} from '../../utils';
-import {dummyJerseys, dummyLigas} from '../../data';
 import { Jarak } from '../../components';
+import { getListLiga } from '../../config/actions/LigaAction';
+import { limitJersey } from '../../config/actions/JerseyAction';
 
 const Home = ({navigation}) => {
+  const dispatch = useDispatch(); 
 
-  const [ligas, setLigas]     = useState(dummyLigas);
-  const [jerseys, setJerseys] = useState(dummyJerseys);
-  const dispatch              = useDispatch(); 
-  
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      dispatch(getListLiga());
+      dispatch(limitJersey());
+    });
+
+    return unsubscribe;
+  }, []);
+
     return (
       <View style={styles.page}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <HeaderComponent navigation={navigation}/>
+          <HeaderComponent navigation={navigation} page="Home"/>
           <BannerSlider />
           <View style={styles.pilihLiga}>
             <Text style={styles.label}>Pilih Liga</Text>
-            <ListLiga ligas={ligas} />
+            <ListLiga ligas={navigation} />
           </View>
 
           <View style={styles.pilihJersey}>
@@ -33,7 +40,7 @@ const Home = ({navigation}) => {
               Pilih <Text style={styles.boldLabel}>Jersey</Text> Yang Anda
               Inginkan
             </Text>
-            <ListJerseys jerseys={jerseys} navigation={navigation}/>
+            <ListJerseys navigation={navigation}/>
 
             <Tombol title="Lihat Semua" type="text" padding={7} />
           </View>
