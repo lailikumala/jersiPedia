@@ -9,10 +9,9 @@ import {
   ScrollView,
   Alert
 } from 'react-native';
-import {colors, fonts, responsiveHeight, responsiveWidth} from '../../utils';
+import {colors, fonts, responsiveWidth} from '../../utils';
 import {IlustrasiRegister1} from '../../assets';
 import {Inputan, Jarak, Tombol} from '../../components';
-import { useNavigation } from '@react-navigation/native';
 
 const Register1 = ({navigation}) => { 
   

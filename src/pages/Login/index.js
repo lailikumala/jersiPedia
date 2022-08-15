@@ -1,20 +1,29 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Alert} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import {Ilustrasi, Logo} from '../../assets';
 import {Inputan, Jarak, Tombol} from '../../components';
-import { loginUser } from '../../config/actions/auth';
-import {colors, fonts, responsiveHeight} from '../../utils';
+import { loginUser } from '../../config/actions/AuthAction';
+import {colors, fonts, getData, responsiveHeight} from '../../utils';
 
 const Login = ({navigation}) => {
-  const [email, setEmail]       = useState('');
-  const [password, setPassword] = useState('');
-  const dispatch                = useDispatch();
-  const {loginLoading, loginResult} = useSelector(s => s.Auth);
-
+  const [email, setEmail]                       = useState('');
+  const [password, setPassword]                 = useState('');
+  const dispatch                                = useDispatch();
+  const {loginLoading, loginResult, loginError} = useSelector(s => s.AuthReducer);
+  const unregisterd                             = loginError == "There is no user record corresponding to this identifier. The user may have been deleted."
+  const wrongPass                               = loginError == "The password is invalid or the user does not have a password."
+  
   useEffect(() => {
-    if (loginResult) navigation.replace('MainApp')
-  }, [loginResult]);
+    if (loginResult) {
+      getData('user').then(res => {
+        const data = res;
+        if (data) navigation.replace('MainApp');
+      });
+    } 
+    else if (unregisterd)  Alert.alert("Error", "User Tidak Ditemukan / Belum Terdaftar!")
+    else if (wrongPass) Alert.alert("Error", "Password Salah!")
+  }, [loginResult, unregisterd, wrongPass]);
 
   const login = () => {
     if (email && password) {

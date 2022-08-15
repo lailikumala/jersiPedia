@@ -12,40 +12,38 @@ import {
 import {colors, fonts, responsiveWidth} from '../../utils';
 import {IlustrasiRegister2} from '../../assets';
 import {Inputan, Jarak, Pilihan, Tombol} from '../../components';
-import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import {getProvinceList, getCityList,} from "../../config/actions/rajaOngkir";
-import { registerUser } from '../../config/actions/auth';
+import {getProvinsiList, getKotaList} from '../../config/actions/RajaOngkirAction';
+import { registerUser } from '../../config/actions/AuthAction';
 
-const Register2 = ({route}) => {
-  const [address, setAddress]           = useState('');
-  const [dataCity, setDataCity]         = useState(false);
-  const [dataProvince, setDataProvince] = useState(false);
-  const navigation                      = useNavigation();
-  const dispatch                        = useDispatch();
-  const {ProvinceResult, CityResult}    = useSelector((s) => s.RajaOngkir);
-  const {registerLoading, registerResult, } = useSelector(state => state.Auth);
-  const {name, email, nohp, password}   = route.params
-
-  console.log("tess", name, email, nohp, password, address, dataProvince, dataCity)
-  
-  useEffect(() => {
-    dispatch(getProvinceList())
-  },[])
+const Register2 = ({navigation, route}) => {
+  const [address, setAddress]               = useState('');
+  const [dataCity, setDataCity]             = useState(false);
+  const [dataProvince, setDataProvince]     = useState(false);
+  const dispatch                            = useDispatch();
+  const {getProvinsiResult, getKotaResult}  = useSelector((s) => s.RajaOngkirReducer);
+  const {registerLoading, registerResult, } = useSelector(state => state.AuthReducer);
+  const {name, email, nohp, password}       = route.params
 
   useEffect(() => {
-    if(registerResult) navigation.navigate("MainApp")
+    dispatch(getProvinsiList())
   },[])
+
+  useEffect(async() => {
+    if(registerResult) {
+      await Alert.alert("sukses", "User Berhasil Terdaftar!")
+      navigation.replace("MainApp");
+    }
+  },[registerResult])
   
-  const changeProvince = (province) => {
-    setDataProvince(province)
-    dispatch(getCityList(province));
+  const ubahProvinsi = (provinsi) => {
+    console.log("idd", provinsi)
+    setDataProvince(provinsi)
+    dispatch(getKotaList(provinsi));
   };
 
   const onSubmit = () => {
-
     if(dataCity && dataProvince && address) {
-
       const data = {
         nama: name,
         email: email,
@@ -55,14 +53,11 @@ const Register2 = ({route}) => {
         kota: dataCity,
         status: 'user'
       }
-
       //ke Auth Action
       dispatch(registerUser(data, password));
-
     }else {
       Alert.alert("Error", 'Alamat, Kota, dan Provinsi harus diisi')
     }
-
   }
 
     return (
@@ -100,15 +95,15 @@ const Register2 = ({route}) => {
               />
 
               <Pilihan 
-              label="Province" 
-              datas={ProvinceResult ? ProvinceResult : []}
+              label="Provinsi" 
+              datas={getProvinsiResult ? getProvinsiResult : []}
               selectedValue={dataProvince}
-              onValueChange={(province) => changeProvince(province)}
+              onValueChange={(province) => ubahProvinsi(province)}
               />
               
               <Pilihan 
-              label="City/Dist" 
-              datas={CityResult ? CityResult : []}
+              label="Kota/Kab" 
+              datas={getKotaResult ? getKotaResult : []}
               selectedValue={dataCity}
               onValueChange={(city) => setDataCity(city)}
               />

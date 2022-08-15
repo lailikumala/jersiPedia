@@ -16,13 +16,13 @@ const Pilihan = ({label, datas, width, height, fontSize, selectedValue, onValueC
           <Picker.Item label="--Pilih--" value="" />
           {datas.map((item, index) => {
             
-            if(label == "Province") {
+            if(label == "Provinsi") {
 
               return <Picker.Item label={item.province} value={item.province_id} key={item.province_id} />
-            }else if(label == "City/Dist"){
+            }else if(label == "Kota/Kab"){
               
               return <Picker.Item label={item.type+" "+item.city_name} value={item.city_id} key={item.city_id} />
-            }else if(label == "Ekspedition") {
+            }else if(label == "Ekspedisi") {
               return <Picker.Item label={item.label} value={item} key={item.id} />
             }else {
               
