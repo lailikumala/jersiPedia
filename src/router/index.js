@@ -10,12 +10,8 @@ const Tab = createBottomTabNavigator();
 const MainApp = () => {
   return (
     <Tab.Navigator tabBar={(props) => <BottomNavigator {...props} />}>
-      <Tab.Screen name="Home" component={Home}  options={{headerShown: false}}/>
-      <Tab.Screen
-        name="ListJersey"
-        component={ListJersey}
-        options={{title: 'Jersey', headerShown: false}}
-      />
+      <Tab.Screen name="Beranda" component={Home}  options={{headerShown: false}}/>
+      <Tab.Screen name="ListJersey" component={ListJersey} options={{title: 'Jersey', headerShown: false}}/>
       <Tab.Screen name="Profile" component={Profile}  options={{headerShown: false}}/>
     </Tab.Navigator>
   );
@@ -50,17 +46,17 @@ const Router = () => {
       <Stack.Screen
         name="EditProfile"
         component={EditProfile}
-        options={{title: 'Edit Profile'}}
+        options={{title: 'Ubah Profil'}}
       />
       <Stack.Screen
         name="ChangePassword"
         component={ChangePassword}
-        options={{title: 'Change Password'}}
+        options={{title: 'Ubah Password'}}
       />
       <Stack.Screen
         name="History"
         component={History}
-        options={{title: 'History Pemesanan'}}
+        options={{title: 'Riwayat Pemesanan'}}
       />
       <Stack.Screen
         name="Login"
