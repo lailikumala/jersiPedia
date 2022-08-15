@@ -1,11 +1,30 @@
 import React from 'react';
 import {StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {colors, responsiveHeight, responsiveWidth} from '../../../utils';
+import {useNavigation} from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
 
-const CardLiga = ({liga}) => {
+const CardLiga = ({liga, id}) => {
+
+  const navigation = useNavigation();
+  const dispatch   = useDispatch();
+
+  const toJerseyByLiga = (id, namaLiga) => {
+
+    // ke Jersey Action 
+    // dispatch(getJerseyByLiga(id, namaLiga));
+
+    // navigate ke ListJersey
+    navigation.navigate('ListJersey');
+
+  };
+
   return (
-    <TouchableOpacity style={styles.container}>
-      <Image source={liga.gambar} style={styles.logo} />
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => toJerseyByLiga(id, liga.namaLiga)}
+      >
+      <Image source={{uri: liga.image}} style={styles.logo} />
     </TouchableOpacity>
   );
 };
