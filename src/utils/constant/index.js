@@ -13,4 +13,4 @@ export const API_HEADER_RAJAONGKIR_COST = {
   'content-type': 'application/x-www-form-urlencoded',
 };
 
-export const ORIGIN_CITY = '349';
+export const ORIGIN_CITY = '444';
