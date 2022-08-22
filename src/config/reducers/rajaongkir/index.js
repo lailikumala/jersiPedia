@@ -41,21 +41,21 @@ export default function (state = initialState, action) {
         getKotaError: action.payload.errorMessage,
       };
 
-    // case GET_KOTA_DETAIL:
-    //   return {
-    //     ...state,
-    //     getKotaDetailLoading: action.payload.loading,
-    //     getKotaDetailResult: action.payload.data,
-    //     getKotaDetailError: action.payload.errorMessage,
-    //   };
+    case GET_KOTA_DETAIL:
+      return {
+        ...state,
+        getKotaDetailLoading: action.payload.loading,
+        getKotaDetailResult: action.payload.data,
+        getKotaDetailError: action.payload.errorMessage,
+      };
 
-    // case POST_ONGKIR:
-    //   return {
-    //     ...state,
-    //     ongkirLoading: action.payload.loading,
-    //     ongkirResult: action.payload.data,
-    //     ongkirError: action.payload.errorMessage,
-    //   };
+    case POST_ONGKIR:
+      return {
+        ...state,
+        ongkirLoading: action.payload.loading,
+        ongkirResult: action.payload.data,
+        ongkirError: action.payload.errorMessage,
+      };
     default:
       return state;
   }
