@@ -2,8 +2,10 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import { colors } from '../../../utils';
 import TabItem from '../TabItem';
+import { connect } from 'react-redux';
+import { deleteParameterJersey } from '../../../config/actions/JerseyAction';
 
-const BottomNavigator = ({state, descriptors, navigation}) => {
+const BottomNavigator = ({state, descriptors, navigation, dispatch}) => {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
 
   if (focusedOptions.tabBarVisible === false) {
@@ -29,10 +31,10 @@ const BottomNavigator = ({state, descriptors, navigation}) => {
             target: route.key,
             canPreventDefault: true,
           });
-
-          if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate(route.name);
-          }
+          
+          if (!isFocused && !event.defaultPrevented) navigation.navigate(route.name)
+          
+          if(route.name !== "ListJersey") dispatch(deleteParameterJersey())
         };
 
         const onLongPress = () => {
@@ -56,7 +58,7 @@ const BottomNavigator = ({state, descriptors, navigation}) => {
   );
 };
 
-export default BottomNavigator;
+export default connect()(BottomNavigator);
 
 const styles = StyleSheet.create({
   container: {
