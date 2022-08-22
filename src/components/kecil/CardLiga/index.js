@@ -3,6 +3,7 @@ import {StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {colors, responsiveHeight, responsiveWidth} from '../../../utils';
 import {useNavigation} from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
+import {getJerseyByLiga} from "../../../config/actions/JerseyAction";
 
 const CardLiga = ({liga, id}) => {
 
@@ -12,7 +13,7 @@ const CardLiga = ({liga, id}) => {
   const toJerseyByLiga = (id, namaLiga) => {
 
     // ke Jersey Action 
-    // dispatch(getJerseyByLiga(id, namaLiga));
+    dispatch(getJerseyByLiga(id, namaLiga));
 
     // navigate ke ListJersey
     navigation.navigate('ListJersey');

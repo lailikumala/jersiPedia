@@ -16,21 +16,14 @@ const ListJersey = ({navigation}) => {
       dispatch(getListLiga());
       dispatch(getListJersey(idLiga, keyword));
     });
-
     return unsubscribe;
   }, [idLiga, keyword]);
 
   useEffect(() => {
-    if (keyword) {
-      dispatch(getListJersey(idLiga, keyword));
-    }
-  }, [keyword]);
+    if (keyword) dispatch(getListJersey(idLiga, keyword))
+    else if (idLiga) dispatch(getListJersey(idLiga, keyword))
+  }, [keyword, idLiga]);
 
-  useEffect(() => {
-    if (idLiga) {
-      dispatch(getListJersey(idLiga, keyword));
-    }
-  }, [idLiga]);
   
     return (
       <View style={styles.page}>
