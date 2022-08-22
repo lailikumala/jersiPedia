@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {IconHapus} from '../../../assets';
 import {
   colors,
@@ -9,11 +9,20 @@ import {
   responsiveWidth,
 } from '../../../utils';
 import Jarak from '../Jarak';
+import { deleteKeranjang } from '../../../config/actions/KeranjangAction';
+import { useDispatch } from 'react-redux';
 
-const CardKeranjang = ({keranjang}) => {
+const CardKeranjang = ({keranjang, keranjangUtama, id}) => {
+  
+  const dispatch = useDispatch();
+
+  const hapusKeranjang = () => {
+    dispatch(deleteKeranjang(id, keranjangUtama, keranjang))
+  }
+
   return (
     <View style={styles.container}>
-      <Image source={keranjang.product.gambar[0]} style={styles.gambar} />
+      <Image source={{ uri : keranjang.product.gambar[0]}} style={styles.gambar} />
 
       <View style={styles.desc}>
         <Text style={styles.nama}>{keranjang.product.nama}</Text>
@@ -32,9 +41,9 @@ const CardKeranjang = ({keranjang}) => {
         <Text style={styles.textBold}>{keranjang.keterangan} </Text>
       </View>
 
-      <View style={styles.hapus}>
+      <TouchableOpacity style={styles.hapus} onPress={hapusKeranjang}>
         <IconHapus />
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };
