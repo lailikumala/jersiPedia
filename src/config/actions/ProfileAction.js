@@ -50,29 +50,29 @@ export const updateProfile = (data) => dispatch => {
       });
 };
 
-// export const changePassword = (data) => dispatch => {
-// //LOADING
-//     dispatchLoading(dispatch, CHANGE_PASSWORD);
+export const changePassword = (data) => dispatch => {
+//LOADING
+    dispatchLoading(dispatch, CHANGE_PASSWORD);
 
-//     //Cek dulu apakah benar email & password lama (login)
-//     return FIREBASE.auth()
-//       .signInWithEmailAndPassword(data.email, data.password)
-//       .then((response) => {
-//         //jika sukses maka update password
-//         var user = FIREBASE.auth().currentUser;
-//         user
-//           .updatePassword(data.newPassword)
-//           .then(function () {
-//             // Update successful.
-//             dispatchSuccess(dispatch, CHANGE_PASSWORD, 'Sukses Ganti Password');
-//           })
-//           .catch(function (error) { // AN HAPPEND ERROR
-//             dispatchError(dispatch, CHANGE_PASSWORD, error);
-//             alert(error);
-//           });
-//       })
-//       .catch((error) => { // ERROR
-//         dispatchError(dispatch, CHANGE_PASSWORD, error.message);
-//         alert(error.message);
-//       });
-// };
+    //Cek dulu apakah benar email & password lama (login)
+    return FIREBASE.auth()
+      .signInWithEmailAndPassword(data.email, data.password)
+      .then((response) => {
+        //jika sukses maka update password
+        var user = FIREBASE.auth().currentUser;
+        user
+          .updatePassword(data.newPassword)
+          .then(function () {
+            // Update successful.
+            dispatchSuccess(dispatch, CHANGE_PASSWORD, 'Sukses Ganti Password');
+          })
+          .catch(function (error) { // AN HAPPEND ERROR
+            dispatchError(dispatch, CHANGE_PASSWORD, error);
+            alert(error);
+          });
+      })
+      .catch((error) => { // ERROR
+        dispatchError(dispatch, CHANGE_PASSWORD, error.message);
+        alert(error.message);
+      });
+};

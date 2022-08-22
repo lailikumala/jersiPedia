@@ -33,21 +33,21 @@ export default function (state = initialState, action) {
         updateProfileError: false,
       };
 
-    // case CHANGE_PASSWORD:
-    //   return {
-    //     ...state,
-    //     changePasswordLoading: action.payload.loading,
-    //     changePasswordResult: action.payload.data,
-    //     changePasswordError: action.payload.errorMessage,
-    //   };
+    case CHANGE_PASSWORD:
+      return {
+        ...state,
+        changePasswordLoading: action.payload.loading,
+        changePasswordResult: action.payload.data,
+        changePasswordError: action.payload.errorMessage,
+      };
 
-    // case CLEAR_CHANGE_PASSWORD:
-    //   return {
-    //     ...state,
-    //     changePasswordLoading: false,
-    //     changePasswordResult: false,
-    //     changePasswordError: false,
-    //   };
+    case CLEAR_CHANGE_PASSWORD:
+      return {
+        ...state,
+        changePasswordLoading: false,
+        changePasswordResult: false,
+        changePasswordError: false,
+      };
     default:
       return state;
   }
