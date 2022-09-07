@@ -1,7 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Home, Splash, ListJersey, Profile, JerseyDetail, Keranjang, Checkout, EditProfile, ChangePassword, History, Login, Register1, Register2} from '../pages';
+import {Home, Splash, ListJersey, Profile, JerseyDetail, Keranjang, Checkout, EditProfile, ChangePassword, History, Login, Register1, Register2, Midtrans} from '../pages';
 import {BottomNavigator} from '../components';
 
 const Stack = createNativeStackNavigator();
@@ -68,9 +68,14 @@ const Router = () => {
         component={Register1}
         options={{headerShown: false}}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="Register2"
         component={Register2}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Midtrans"
+        component={Midtrans}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

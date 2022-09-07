@@ -5,6 +5,7 @@ import {colors, fonts, numberWithCommas, responsiveHeight, getData, API_RAJAONGK
 import {getKotaDetail, postOngkir} from '../../config/actions/RajaOngkirAction';
 import {couriers} from '../../data';
 import { useDispatch, useSelector } from 'react-redux';
+import { clearSnapTransactions, snapTransactions } from '../../config/actions/PaymentAction';
 
 const Checkout = ({navigation, route}) => {
   const dispatch = useDispatch();
@@ -20,9 +21,9 @@ const Checkout = ({navigation, route}) => {
   const {totalHarga, totalBerat}  = route.params;
   const {getKotaDetailResult, 
         ongkirResult}             = useSelector(s => s.RajaOngkirReducer);
-  // const {snapTransactionsResult, 
-  //       snapTransactionsLoading}  = useSelector(s => s.PaymentReducer);
-console.log("kota", kota)
+  const {snapTransactionsResult, 
+        snapTransactionsLoading}  = useSelector(s => s.PaymentReducer);
+        
   useEffect(() => {
     getData('user').then(res => {
       const data = res;
@@ -50,20 +51,20 @@ console.log("kota", kota)
     }
   }, [ongkirResult]);
 
-  // useEffect(() => {
-  //   if (snapTransactionsResult) {
-  //     const params = {
-  //       url: snapTransactionsResult.redirect_url,
-  //       ongkir: ongkir,
-  //       estimasi: estimasi,
-  //       order_id: 'TEST-' + date + '-' + profile.uid,
-  //     };
+  useEffect(() => {
+    if (snapTransactionsResult) {
+      const params = {
+        url: snapTransactionsResult.redirect_url,
+        ongkir: ongkir,
+        estimasi: estimasi,
+        order_id: 'TEST-' + date + '-' + profile.uid,
+      };
 
-  //     dispatch(clearSnapTransactions());
+      dispatch(clearSnapTransactions());
 
-  //     navigation.navigate('Midtrans', params);
-  //   }
-  // }, [snapTransactionsResult]);
+      navigation.navigate('Midtrans', params);
+    }
+  }, [snapTransactionsResult]);
 
   const ubahEkspedisi = ekspedisiSelected => {
     if (ekspedisiSelected) {
@@ -77,28 +78,28 @@ console.log("kota", kota)
     }
   };
 
-  // const Bayar = () => {
-  //   const data = {
-  //     transaction_details: {
-  //       order_id: 'TEST-' + date + '-' + profile.uid,
-  //       gross_amount: parseInt(totalHarga + ongkir),
-  //     },
-  //     credit_card: {
-  //       secure: true,
-  //     },
-  //     customer_details: {
-  //       first_name: profile.nama,
-  //       email: profile.email,
-  //       phone: profile.nohp,
-  //     },
-  //   };
-
-  //   if (!ongkir == 0) {
-  //     dispatch(snapTransactions(data));
-  //   } else {
-  //     Alert.alert('Error', 'Silahkan Ongkir Dipilih Terlebih Dahulu');
-  //   }
-  // };
+  const Bayar = () => {
+    const data = {
+      transaction_details: {
+        order_id: 'TEST-' + date + '-' + profile.uid,
+        gross_amount: parseInt(totalHarga + ongkir),
+      },
+      credit_card: {
+        secure: true,
+      },
+      customer_details: {
+        first_name: profile.nama,
+        email: profile.email,
+        phone: profile.nohp,
+      },
+    };
+    console.log("dataaa", data)
+    if (!ongkir == 0) {
+      dispatch(snapTransactions(data));
+    } else {
+      Alert.alert('Error', 'Silahkan Ongkir Dipilih Terlebih Dahulu');
+    }
+  };
     return (
       <View style={styles.pages}>
         <View style={styles.isi}>
@@ -154,8 +155,8 @@ console.log("kota", kota)
               fontSize={18}
               padding={responsiveHeight(15)}
               icon="keranjang-putih"
-              // onPress={() => Bayar()}
-              // loading={snapTransactionsLoading}
+              onPress={() => Bayar()}
+              loading={snapTransactionsLoading}
             />
           </View>
       </View>

@@ -14,3 +14,12 @@ export const API_HEADER_RAJAONGKIR_COST = {
 };
 
 export const ORIGIN_CITY = '444';
+
+export const HEADER_MIDTRANS = {
+  Accept: 'application/json',
+  'Content-Type': 'application/json',
+  Authorization: 'Basic U0ItTWlkLXNlcnZlci16bThGUC00Q3N4dEwtY0Y2NTBNV1hCaWM=',
+};
+
+export const URL_MIDTRANS = 'https://app.sandbox.midtrans.com/snap/v1/';
+export const URL_MIDTRANS_STATUS = 'https://api.sandbox.midtrans.com/v2/';
