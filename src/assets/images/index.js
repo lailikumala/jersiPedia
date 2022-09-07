@@ -6,5 +6,6 @@ import FotoProfile from './profile.jpg'
 import IlustrasiRegister1 from './register1.js'
 import IlustrasiRegister2 from './register2.js'
 import DefaultImage from './default.jpg'
+import Shopping from './shopping.png'
 
-export { Logo, Ilustrasi, Slider1, Slider2, FotoProfile, IlustrasiRegister1, IlustrasiRegister2, DefaultImage }
+export { Shopping, Logo, Ilustrasi, Slider1, Slider2, FotoProfile, IlustrasiRegister1, IlustrasiRegister2, DefaultImage }

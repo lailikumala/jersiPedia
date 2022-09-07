@@ -1,17 +1,31 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { ListHistory } from '../../components'
-import { dummyPesanans } from '../../data'
-import { colors } from '../../utils'
+import { colors, getData } from '../../utils'
+import {getListHistory} from '../../config/actions/HistoryAction';
+import { useDispatch } from 'react-redux';
 
-const History = () => {
+const History = ({navigation}) => {
 
-    const [pesanans, setPesanans] = useState(dummyPesanans);
-        return (
-            <View style={styles.pages}>
-                <ListHistory pesanans={pesanans} />
-            </View>
-        )
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    getData('user').then((res) => {
+      const data = res;
+
+      if (!data) {
+        navigation.replace('Login');
+      } else {
+        dispatch(getListHistory(data.uid));
+      }
+    });
+  },[])
+  
+  return (
+    <View style={styles.pages}>
+      <ListHistory/>
+    </View>
+  )
     }
     export default History
 
