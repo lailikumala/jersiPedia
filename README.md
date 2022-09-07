@@ -3,7 +3,7 @@
   
   ## Login
   <img src="https://user-images.githubusercontent.com/66887616/188677294-7487dcd7-66ba-4232-879d-910eb1f63739.png" width="150">
-  ## Register 1
+  ## Login
   <img src="https://user-images.githubusercontent.com/66887616/188678895-02c12cb4-a93f-499d-bc77-0bf7ffc4656e.png" width="150">
   ## Register 2
   <img src="https://user-images.githubusercontent.com/66887616/188679028-12004f8f-4683-4779-9980-7ad926639bdf.png" width="150">
