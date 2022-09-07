@@ -155,11 +155,8 @@ export const postOngkir = (data, ekspedisi) => dispatch => {
           dispatchError(dispatch, POST_ONGKIR, response);
         } else {
           const ongkirs = response.data.rajaongkir.results[0].costs;
-          console.log("filterrrr", ongkirs)
           const ongkirYangDipilih = ongkirs
           .filter((ongkir) => ongkir.service === ekspedisi.service).map((filterOngkir) => {
-          console.log("filterrr222222222r", filterOngkir)
-            
             return filterOngkir
           });
 
