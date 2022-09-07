@@ -8,7 +8,7 @@
   ## Register 2
   <img src="https://user-images.githubusercontent.com/66887616/188679028-12004f8f-4683-4779-9980-7ad926639bdf.png" width="150">
   ## Profile
-  <img src="https://user-images.githubusercontent.com/66887616/188679105-1586342c-15ad-4c86-bfec-28f4e3ee4024.png" width="150">
+  <img src="https://user-images.githubusercontent.com/66887616/188914967-40d7597a-1854-446c-9456-60456c6ff66f.jpeg" width="150">
   ## Edit Profile
   <img src="https://user-images.githubusercontent.com/66887616/188679184-eaf12287-6c0c-4ff4-a985-95bf5c488378.png" width="150">
   ## Home
