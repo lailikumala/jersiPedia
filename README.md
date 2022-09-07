@@ -23,3 +23,8 @@
   <img src="https://user-images.githubusercontent.com/66887616/188679923-c6e89e78-707d-4dc9-9d52-a21d13d4103c.png)" width="150">
   ## Checkout
   <img src="https://user-images.githubusercontent.com/66887616/188679997-f4905ac3-0882-45c9-b56a-5b84ba51ee6a.png" width="150">
+  ## Payment Midtrans
+  <img src="https://user-images.githubusercontent.com/66887616/188919517-be62e492-6580-4f34-9052-9bf333650b36.jpeg" width="150">
+  ## Success Transaction
+  <img src="https://user-images.githubusercontent.com/66887616/188919548-ba077cb5-8ba4-469a-8329-073fa9e8b28c.jpeg" width="150">
+  
