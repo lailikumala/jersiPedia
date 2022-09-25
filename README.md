@@ -1,8 +1,17 @@
 # Jersipedia
   Jersey online shop is a mobile app built with react native framework, firebase & midtrans.
   
-  ### Login
-  <img src="https://user-images.githubusercontent.com/66887616/188677294-7487dcd7-66ba-4232-879d-910eb1f63739.png" width="150">
+  <div style={{display: "flex"}}>
+    <div>
+      <p style={{font-weight: "600"}}>Login<p/>
+      <img src="https://user-images.githubusercontent.com/66887616/188677294-7487dcd7-66ba-4232-879d-910eb1f63739.png" width="150">
+    </div>
+    <div>
+      <p style={{font-weight: "600"}}>Register 1<p/>
+      <img src="https://user-images.githubusercontent.com/66887616/188678895-02c12cb4-a93f-499d-bc77-0bf7ffc4656e.png" width="150">
+    </div>
+  </div>
+  
   
   ### Register 1
   <img src="https://user-images.githubusercontent.com/66887616/188678895-02c12cb4-a93f-499d-bc77-0bf7ffc4656e.png" width="150">
